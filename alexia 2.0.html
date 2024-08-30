@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente Virtual</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        #mic-btn {
+            background-color: #007bff;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+        }
+        
+        #mic-btn img {
+            width: 50px;
+            height: 50px;
+        }
+        
+        #response {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        img{
+            width: 90px;
+            height: 90px;
+        }
+
+
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        #mic-btn {
+            background-color: #007bff;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        #animation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .dot {
+            width: 15px;
+            height: 15px;
+            margin: 0 5px;
+            background-color: #007bff;
+            border-radius: 50%;
+            animation: bounce 1s infinite;
+        }
+        
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        #animation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .dot {
+            width: 15px;
+            height: 15px;
+            margin: 0 5px;
+            background-color: #007bff;
+            border-radius: 50%;
+            animation: bounce 1s infinite;
+        }
+        
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        
+    </style>
+    <div class="container">
+        <button id="mic-btn">
+            <img src="microfone-gravador.png" alt="Microfone">
+        </button>
+        <div id="animation" class="hidden">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <div id="response"></div>
+
+    <script>
+        // Verifica se o navegador suporta a API Web Speech
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'pt-BR'; // Define o idioma para português brasileiro
+
+    document.getElementById('mic-btn').addEventListener('click', () => {
+        recognition.start(); // Inicia o reconhecimento de voz
+    });
+
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript.toLowerCase(); // Obtém o texto transcrito
+
+        // Verifica comandos
+        if (transcript.includes('ligar luz do quarto')) {
+            document.getElementById('response').innerText = 'Ligando a luz do quarto...';
+        } else if (transcript.includes('desligar luz do quarto')) {
+            document.getElementById('response').innerText = 'Desligando a luz do quarto...';
+        } else {
+            document.getElementById('response').innerText = `Comando não reconhecido: ${transcript}`;
+        }
+    };
+
+    recognition.onerror = (event) => {
+        console.error(event.error);
+        document.getElementById('response').innerText = 'Ocorreu um erro no reconhecimento de voz.';
+    };
+} else {
+    alert('Seu navegador não suporta reconhecimento de voz.');
+}
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
